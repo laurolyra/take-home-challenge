@@ -18,7 +18,7 @@ type ChooseNodeDrawerProps = {
 export const ChooseNodeDrawer = ({
   id: edgeToAddNodeAfter,
 }: ChooseNodeDrawerProps) => {
-  const { drawerVisible, closeEditorDrawer } = useContext(editor);
+  const { drawerVisible, closeEditorDrawer, setEditNodeModal } = useContext(editor);
   const { addNodeAfterEdge, edges } = useContext(graph);
 
   const onButtonClick = (nodeName: UserAddableNodeName) => {
@@ -30,6 +30,10 @@ export const ChooseNodeDrawer = ({
       });
     }
   };
+  const handleNodeOptionModal = () => {
+    closeEditorDrawer();
+    setEditNodeModal(true)
+  }
 
   return (
     <Drawer
@@ -42,7 +46,7 @@ export const ChooseNodeDrawer = ({
                 <DiamondSvg className="h-12 w-20 stroke-4 stroke-Y-350 text-Y-300" />
               }
               label="Conditional"
-              onClick={() => onButtonClick("conditional")}
+              onClick={handleNodeOptionModal}
             />
           </div>
         </>

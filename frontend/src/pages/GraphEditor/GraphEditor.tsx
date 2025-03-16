@@ -3,11 +3,12 @@ import { useCallback, useContext, useEffect, useRef, useState } from "react";
 import ReactFlow, { Background } from "reactflow";
 import { AddNodeEdge } from "./AddNodeEdge";
 import { CurrentDrawer } from "./Drawers";
-import { EditorProvider } from "./Editor";
+import { editor, EditorProvider } from "./Editor";
 import { GraphProvider, graph } from "./Graph";
 import { allNodes } from "./Nodes";
 import { generateEdge, generateNode } from "./nodeGeneration";
 import { positionNodes } from "./positionNodes";
+import Modal from "@src/components/Modal";
 
 const edgeTypes = {
   "add-node": AddNodeEdge,
@@ -23,6 +24,9 @@ function ReactFlowSandbox() {
     setNodes,
     setEdges,
   } = useContext(graph);
+
+  const {editNodeModal, setEditNodeModal} = useContext(editor);
+  
 
   const [centeredGraphAtStart, setCenteredGraphAtStart] = useState(false);
   const reactFlowRef = useRef<HTMLDivElement>(null);
@@ -68,19 +72,22 @@ function ReactFlowSandbox() {
 
   return (
     <div className="h-full flex flex-col overflow-hidden w-full relative">
-      <ReactFlow
-        ref={reactFlowRef}
-        nodes={nodes}
-        edges={edges}
-        edgeTypes={edgeTypes}
-        nodeTypes={allNodes}
-        onInit={setReactFlowInstance}
-        nodesDraggable={false}
-        deleteKeyCode={null}
-      >
-        <Background className="bg-N-75" size={2} color="#C1C4D6" />
-      </ReactFlow>
-      <CurrentDrawer />
+      <Modal isOpen={editNodeModal} id="node-modal" onClose={() => setEditNodeModal(false)}>
+        <h2>teste</h2>
+      </Modal>
+        <ReactFlow
+          ref={reactFlowRef}
+          nodes={nodes}
+          edges={edges}
+          edgeTypes={edgeTypes}
+          nodeTypes={allNodes}
+          onInit={setReactFlowInstance}
+          nodesDraggable={false}
+          deleteKeyCode={null}
+        >
+          <Background className="bg-N-75" size={2} color="#C1C4D6" />
+        </ReactFlow>
+        <CurrentDrawer />
     </div>
   );
 }

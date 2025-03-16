@@ -21,6 +21,8 @@ export type Editor = {
      */
     props: Parameters<(typeof drawers)[T]>[0] | CommonDrawerProps
   ) => void;
+  editNodeModal: boolean;
+  setEditNodeModal: React.Dispatch<React.SetStateAction<boolean>>;
 };
 
 export const editor = createContext({} as Editor);
@@ -29,6 +31,7 @@ export function EditorProvider({ children }: PropsWithChildren) {
   const [drawerName, setDrawerName] = useState<DrawerName>(DrawerName.newNode);
   const [drawerVisible, setDrawerVisible] = useState(false);
   const [drawerProps, setDrawerProps] = useState({});
+  const [editNodeModal, setEditNodeModal] = useState<boolean>(false)
 
   const showDrawer: Editor["showDrawer"] = (type, props) => {
     if (drawerVisible) {
@@ -57,6 +60,8 @@ export function EditorProvider({ children }: PropsWithChildren) {
         drawerVisible,
         showDrawer,
         drawerProps,
+        editNodeModal,
+        setEditNodeModal
       }}
     >
       {children}
