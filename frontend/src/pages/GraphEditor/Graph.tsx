@@ -29,7 +29,7 @@ export type Graph = {
   edges: Edge[];
   setNodes: Dispatch<SetStateAction<Node[]>>;
   setEdges: Dispatch<SetStateAction<Edge[]>>;
-  addNodeAfterEdge: (params: { nodeName: NodeName; edge: Edge }) => void;
+  addNodeAfterEdge: (params: { nodeName: NodeName; edge: Edge, nodeLabel?: string }) => void;
   reactFlowInstance: ReactFlowInstance | null;
   setReactFlowInstance: Dispatch<SetStateAction<ReactFlowInstance | null>>;
   fitZoomToGraph: (reactFlowRef: RefObject<HTMLDivElement>) => void;
@@ -59,7 +59,7 @@ export function GraphProvider({ children }: PropsWithChildren) {
     [setNodes, setEdges]
   );
 
-  const addNodeAfterEdge: Graph["addNodeAfterEdge"] = ({ nodeName, edge }) => {
+  const addNodeAfterEdge: Graph["addNodeAfterEdge"] = ({ nodeName, edge, nodeLabel = '' }) => {
     if (!edge) {
       return;
     }
@@ -69,6 +69,7 @@ export function GraphProvider({ children }: PropsWithChildren) {
       nodeName,
       nodes,
       edges,
+      nodeLabel
     });
 
     closeEditorDrawer();

@@ -6,3 +6,7 @@ body,
 #root {
   height: 100vh;
 }
+
+.input-basics {
+  @apply p-[2px_4px] border border-red-500 rounded-[0.250rem]
+}

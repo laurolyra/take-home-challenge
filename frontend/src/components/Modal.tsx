@@ -7,8 +7,6 @@ interface ModalProps {
   children: JSX.Element;
 }
 
-const ESCAPE_KEY = '27'
-
 const Modal = ({ isOpen, onClose, id, children}: ModalProps) => {
   const handleBackDropClick = (e: React.MouseEvent<HTMLDivElement>) => {
     e.preventDefault
@@ -23,7 +21,7 @@ const Modal = ({ isOpen, onClose, id, children}: ModalProps) => {
     if(!window) return;
     
     const keyUpListener = (e: KeyboardEvent) => {
-      if (e.key === ESCAPE_KEY) onClose()
+      if (e.code === 'Escape') onClose()
     }
 
     window.addEventListener('keyup', keyUpListener);

@@ -17,11 +17,13 @@ export function insertNodeAfterEdge<SelectedNodeName extends NodeName>({
   nodeName,
   edges,
   nodes,
+  nodeLabel,
 }: {
   edge: Edge;
   nodeName: SelectedNodeName;
   edges: Edge[];
   nodes: Node[];
+  nodeLabel: string
 }): { addedNode: NodeProps<SelectedNodeName>; nodes: Node[]; edges: Edge[] } {
   let addedNode = {};
   let returnNodes = null;
@@ -48,7 +50,7 @@ export function insertNodeAfterEdge<SelectedNodeName extends NodeName>({
       const newConditionalNode = generateNode({
         nodeName: "conditional",
         data: {
-          label: "",
+          label: nodeLabel,
         },
       });
 

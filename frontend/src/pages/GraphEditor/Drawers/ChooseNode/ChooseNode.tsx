@@ -1,35 +1,13 @@
 import { DiamondSvg } from "assets/Diamond";
 import { Drawer } from "components/Drawer";
 import { editor } from "@src/pages/GraphEditor/Editor";
-import { ReactNode, useContext } from "react";
+import { useContext } from "react";
 
-import { CommonDrawerProps } from "..";
-
-import { graph } from "../../Graph";
-import { UserAddableNodeName } from "../../Nodes";
 import { ChooseNodeButton } from "./ChooseNodeButton";
 
-type ChooseNodeDrawerProps = {
-  sourceNodeId: string;
-  targetNodeId: string;
-  sourceEdgeLabel: ReactNode | null | undefined;
-} & CommonDrawerProps;
-
-export const ChooseNodeDrawer = ({
-  id: edgeToAddNodeAfter,
-}: ChooseNodeDrawerProps) => {
+export const ChooseNodeDrawer = () => {
   const { drawerVisible, closeEditorDrawer, setEditNodeModal } = useContext(editor);
-  const { addNodeAfterEdge, edges } = useContext(graph);
 
-  const onButtonClick = (nodeName: UserAddableNodeName) => {
-    if (edgeToAddNodeAfter !== undefined) {
-      const edge = edges.find((edge) => edge.id === edgeToAddNodeAfter)!;
-      addNodeAfterEdge({
-        nodeName,
-        edge,
-      });
-    }
-  };
   const handleNodeOptionModal = () => {
     closeEditorDrawer();
     setEditNodeModal(true)
